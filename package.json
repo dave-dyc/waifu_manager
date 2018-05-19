@@ -1,0 +1,14 @@
+{
+  "name": "waifu_manager",
+  "version": "1.0.0",
+  "description": "Waifu Manager is a discord bot that allows users create their own custom bots",
+  "dependencies": {
+    "discord.js": "https://github.com/discordjs/discord.js/tarball/master",
+    "key-file-storage": "^2.1.5"
+  },
+  "scripts": {
+    "start": "node main.js"
+  },
+  "author": "PyKemis",
+  "license": "MIT"
+}
