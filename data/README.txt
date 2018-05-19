@@ -1,0 +1,1 @@
+This folder will be populated with userdata. You can delete this file (/data/README.txt).
