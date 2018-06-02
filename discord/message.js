@@ -32,6 +32,7 @@ var commands = {
             cmds      : 'Shows all commands',
             words     : 'Shows all keywords',
             phrases   : 'Shows all phrases',
+            bigtext   : 'Talk as the bot in big text - !bigtext OWO',
             say       : 'Talk as the bot - !say hello'
         };
         
@@ -165,8 +166,9 @@ var commands = {
         
         return 'FINI\'ve removed the word `' + word + '` for you!';
     },   
-    delphrase : (discord, data, cache, message, phrase) => {
+    delphrase : (discord, data, cache, message, arg, rest) => {
         var id = message.author.id;
+        var phrase = arg + ' ' + rest;
         
         if (phrase == '')
             return 'WRNPlease follow this format: !delphrase <phrase>';
@@ -269,6 +271,22 @@ var process = (discord, data, cache, message, isDM) => {
                 message.delete();
             
             return content.substr(5);
+        }
+        
+        if (cmd == 'bigtext') {
+            if (!isDM)
+                message.delete();
+            
+            var clean = content.substr(9).toLowerCase().replace(/[^a-z ]+/g, '');
+            var result = '';
+            
+            for (var i = 0; i < clean.length; i++)
+                if (clean[i] == ' ')
+                    result += '  ';
+                else
+                    result += ':regional_indicator_' + clean[i] + ':';
+
+            return result;
         }
         
         var resp = data[id].cmds[matches[1]];
