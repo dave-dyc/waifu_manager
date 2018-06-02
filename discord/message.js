@@ -277,18 +277,29 @@ var process = (discord, data, cache, message, isDM) => {
             if (!isDM)
                 message.delete();
             
-            var clean = content.substr(9).toLowerCase().replace(/[^a-z0-9 ]+/g, '');
+            var clean = content.substr(9).toLowerCase().replace(/[^a-z0-9?! ]+/g, '');
             var result = '';
             var numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
             
-            for (var i = 0; i < clean.length; i++)
-                if (clean[i] == ' ')
-                    result += '  ';
-                else {
-                    var val = parseInt(clean[i]);
-                    result += !isNaN(val) ? ':' + numbers[val] + ':' :
-                                            ':regional_indicator_' + clean[i] + ':';
+            var replace = {
+                ' ' : '  ',
+                '?' : ':question:',
+                '!' : ':exclamation:'
+            };
+            
+            for (var i = 0; i < clean.length; i++) {
+                var c = clean[i];
+                var re = replace[c];
+                
+                if (re) {
+                    result += re;
+                    continue;
                 }
+                
+                var val = parseInt(clean[i]);
+                result += !isNaN(val) ? ':' + numbers[val] + ':' :
+                                        ':regional_indicator_' + clean[i] + ':';
+            }
                 
             if (result.length > 2000)
                 return ':regional_indicator_n::regional_indicator_o:';
