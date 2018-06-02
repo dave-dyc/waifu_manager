@@ -285,7 +285,10 @@ var process = (discord, data, cache, message, isDM) => {
                     result += '  ';
                 else
                     result += ':regional_indicator_' + clean[i] + ':';
-
+                
+            if (result.length > 2000)
+                return ':regional_indicator_n::regional_indicator_o:';
+            
             return result;
         }
         
